@@ -1,7 +1,6 @@
 import React from 'react';
-// O Linter quer a extensão completa .ts para arquivos de lógica importados em componentes
 // eslint-disable-next-line import/extensions
-import { Good } from '../types/index.ts';
+import { Good } from '../types/Good';
 
 interface Props {
   goods: Good[];
@@ -9,9 +8,12 @@ interface Props {
 
 export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
   return (
-    <ul className="list">
+    <ul className="list" data-cy="goods-list">
       {goods.map(good => (
-        <li key={good.id} className={`list__item list__item--${good.color}`}>
+        <li
+          key={good.id}
+          className={`list__item list__item--${good.color}`}
+        >
           {good.name}
         </li>
       ))}

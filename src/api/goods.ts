@@ -1,12 +1,12 @@
-import { Good } from '../types';
+import { Good } from '../types/Good';
 
-const API_URL = 'https://mate.academy/api/goods'; // Verifique se a URL é esta mesma
+const API_URL = 'https://mate.academy/api/goods';
 
 export const getAll = (): Promise<Good[]> => {
   return fetch(API_URL)
     .then(response => {
       if (!response.ok) {
-        throw new Error();
+        throw new Error('Failed to fetch goods');
       }
 
       return response.json();
@@ -17,29 +17,17 @@ export const getAll = (): Promise<Good[]> => {
 };
 
 export const getFirstFive = (): Promise<Good[]> => {
-  return fetch(`${API_URL}?limit=5`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error();
-      }
-
-      return response.json();
-    })
-    .catch(() => {
-      throw new Error('Failed to fetch first five goods');
-    });
+  return getAll().then(goods => {
+    // Ordena por nome e pega os 5 primeiros (Requisito do mentor)
+    return [...goods]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 5);
+  });
 };
 
 export const getRedGoods = (): Promise<Good[]> => {
-  return fetch(`${API_URL}?color=red`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error();
-      }
-
-      return response.json();
-    })
-    .catch(() => {
-      throw new Error('Failed to fetch red goods');
-    });
+  return getAll().then(goods => {
+    // Filtra apenas os vermelhos localmente
+    return goods.filter(good => good.color === 'red');
+  });
 };

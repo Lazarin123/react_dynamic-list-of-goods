@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+// eslint-disable-next-line import/extensions
+import { GoodsList } from './components/GoodsList';
 import { getAll, getFirstFive, getRedGoods } from './api/goods';
-import { Good } from './types';
+import { Good } from './types/Good';
 
-// Export nomeado para evitar erro de build no index.tsx
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [error, setError] = useState('');
 
   const loadGoods = (loader: () => Promise<Good[]>) => {
-    setError(''); // Limpa erro anterior
+    setError('');
     loader()
       .then(setGoods)
       .catch(err => setError(err.message));
@@ -21,9 +21,29 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <div className="buttons">
-        <button onClick={() => loadGoods(getAll)}>Load All</button>
-        <button onClick={() => loadGoods(getFirstFive)}>Load 5 First</button>
-        <button onClick={() => loadGoods(getRedGoods)}>Load Red Goods</button>
+        <button
+          type="button"
+          data-cy="all-button"
+          onClick={() => loadGoods(getAll)}
+        >
+          Load All goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={() => loadGoods(getFirstFive)}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={() => loadGoods(getRedGoods)}
+        >
+          Load red goods
+        </button>
       </div>
 
       {error && <p className="error">{error}</p>}
