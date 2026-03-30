@@ -11,10 +11,7 @@ export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
   return (
     <ul className="list">
       {goods.map(good => (
-        <li
-          key={good.id}
-          className={`list__item list__item--${good.color}`}
-        >
+        <li key={good.id} className={`list__item list__item--${good.color}`}>
           {good.name}
         </li>
       ))}
