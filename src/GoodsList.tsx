@@ -1,17 +1,25 @@
 import React from 'react';
-import { Good } from './types/Good';
+// O Linter quer a extensão completa .ts para arquivos de lógica importados em componentes
+// eslint-disable-next-line import/extensions
+import { Good } from '../types/index.ts';
 
-type Props = {
+interface Props {
   goods: Good[];
-};
+}
 
-/* eslint-disable react/display-name */
-export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
-  <ul>
-    {goods.map(good => (
-      <li key={good.id} className={good.color} data-cy="good">
-        {good.name}
-      </li>
-    ))}
-  </ul>
-));
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
+  return (
+    <ul className="list">
+      {goods.map(good => (
+        <li
+          key={good.id}
+          className={`list__item list__item--${good.color}`}
+        >
+          {good.name}
+        </li>
+      ))}
+    </ul>
+  );
+});
+
+GoodsList.displayName = 'GoodsList';

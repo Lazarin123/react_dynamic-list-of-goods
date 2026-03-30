@@ -1,24 +1,45 @@
-import { Good } from '../types/Good';
+import { Good } from '../types';
 
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const API_URL = 'https://mate.academy/api/goods'; // Verifique se a URL é esta mesma
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+export const getAll = (): Promise<Good[]> => {
+  return fetch(API_URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error();
+      }
 
-    return response.json();
-  });
-}
-
-export const get5First = () => {
-  return getAll().then(goods =>
-    [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
-  ); // sort and get the first 5
+      return response.json();
+    })
+    .catch(() => {
+      throw new Error('Failed to fetch goods');
+    });
 };
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods.filter(good => good.color === 'red')); // get only red
+export const getFirstFive = (): Promise<Good[]> => {
+  return fetch(`${API_URL}?limit=5`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response.json();
+    })
+    .catch(() => {
+      throw new Error('Failed to fetch first five goods');
+    });
+};
+
+export const getRedGoods = (): Promise<Good[]> => {
+  return fetch(`${API_URL}?color=red`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response.json();
+    })
+    .catch(() => {
+      throw new Error('Failed to fetch red goods');
+    });
 };

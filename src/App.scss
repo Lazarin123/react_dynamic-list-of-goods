@@ -1,13 +1,55 @@
-// styles go here
+.App {
+  text-align: center;
+  padding: 20px;
+}
 
-.red {
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.error {
   color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.green {
-  color: green;
-}
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 300px;
+  text-align: left;
 
-.blue {
-  color: blue;
+  &__item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+
+    &--red {
+      color: red;
+    }
+
+    &--green {
+      color: green;
+    }
+
+    &--blue {
+      color: blue;
+    }
+
+    &--yellow {
+      color: yellow;
+    }
+
+    &--purple {
+      color: purple;
+    }
+
+    &--violet {
+      color: violet;
+    }
+  }
 }
