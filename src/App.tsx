@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 // eslint-disable-next-line import/extensions
-import { GoodsList } from './components/GoodsList';
+import { GoodsList } from './GoodsList';
 import { getAll, getFirstFive, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
