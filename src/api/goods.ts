@@ -19,9 +19,7 @@ export const getAll = (): Promise<Good[]> => {
 export const getFirstFive = (): Promise<Good[]> => {
   return getAll().then(goods => {
     // Ordena por nome e pega os 5 primeiros (Requisito do mentor)
-    return [...goods]
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5);
+    return [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
   });
 };
 
